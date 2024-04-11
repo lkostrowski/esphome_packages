@@ -1,0 +1,385 @@
+text_sensor:
+  - platform: modbus_controller
+    modbus_controller_id: ${sofar_modbus_id}
+    name: Sofar Status
+    id: inverter_status
+    register_type: holding
+    icon: 'mdi:information-outline'
+    address: 0x0404
+    response_size: 2
+    lambda: |-
+      auto z = "Unknown";
+      char d = data[item->offset+1];
+      if (d == 0) z = "Czeka";
+      else if (d == 1) z = "Check";
+      else if (d == 2) z = "Working";
+      else if (d == 3) z = "Fault";
+      else if (d == 4) z = "Permanent";
+      else if (d == 5) z = "Fatal error";
+      else if (d == 6) z = "szejść";
+      else if (d == 7) z = "siedem";
+      return {z};
+sensor:
+  - platform: modbus_controller
+    modbus_controller_id: ${sofar_modbus_id}
+    name: Sofar DC1 Voltage
+    id: inverter_dc_v1
+    register_type: holding
+    address: 0x0584
+    unit_of_measurement: 'V'
+    state_class: 'measurement'
+    device_class: 'voltage'
+    icon: 'mdi:alpha-v-circle-outline'
+    value_type: U_WORD
+    accuracy_decimals: 1
+    filters:
+      - multiply: 0.1
+
+  - platform: modbus_controller
+    modbus_controller_id: ${sofar_modbus_id}
+    name: Sofar DC1 Current
+    id: inverter_dc_c1
+    register_type: holding
+    #  address: 0x0007
+    address: 0x0585
+    unit_of_measurement: 'A'
+    state_class: 'measurement'
+    device_class: 'current'
+    icon: 'mdi:alpha-a-circle-outline'
+    value_type: U_WORD
+    accuracy_decimals: 2
+    filters:
+      - multiply: 0.01
+
+  - platform: modbus_controller
+    modbus_controller_id: ${sofar_modbus_id}
+    name: Sofar DC2 Voltage
+    id: inverter_dc_v2
+    register_type: holding
+    address: 0x0587
+    unit_of_measurement: 'V'
+    state_class: 'measurement'
+    device_class: 'voltage'
+    icon: 'mdi:alpha-v-circle-outline'
+    value_type: U_WORD
+    accuracy_decimals: 1
+    filters:
+      - multiply: 0.1
+
+  - platform: modbus_controller
+    modbus_controller_id: ${sofar_modbus_id}
+    name: Sofar DC2 Current
+    id: inverter_dc_c2
+    register_type: holding
+    address: 0x0588
+    unit_of_measurement: 'A'
+    state_class: 'measurement'
+    device_class: 'current'
+    icon: 'mdi:alpha-a-circle-outline'
+    value_type: U_WORD
+    accuracy_decimals: 2
+    filters:
+      - multiply: 0.01
+
+  - platform: modbus_controller
+    modbus_controller_id: ${sofar_modbus_id}
+    name: Sofar DC1 Power
+    id: inverter_dc_power1
+    register_type: holding
+    address: 0x0586
+    unit_of_measurement: 'W'
+    state_class: 'measurement'
+    device_class: 'power'
+    icon: 'mdi:solar-power'
+    value_type: U_WORD
+    filters:
+      - multiply: 10
+
+  - platform: modbus_controller
+    modbus_controller_id: ${sofar_modbus_id}
+    name: Sofar DC2 Power
+    id: inverter_dc_power2
+    register_type: holding
+    address: 0x0589
+    unit_of_measurement: 'W'
+    state_class: 'measurement'
+    device_class: 'power'
+    icon: 'mdi:solar-power'
+    value_type: U_WORD
+    filters:
+      - multiply: 10
+
+  - platform: modbus_controller
+    modbus_controller_id: ${sofar_modbus_id}
+    name: Sofar AC Power
+    id: inverter_ac_power
+    register_type: holding
+    address: 0x0485
+    unit_of_measurement: 'W'
+    state_class: 'measurement'
+    device_class: 'power'
+    icon: 'mdi:solar-power-variant-outline'
+    value_type: U_WORD
+    filters:
+      - multiply: 10
+
+  - platform: modbus_controller
+    modbus_controller_id: ${sofar_modbus_id}
+    name: Sofar AC Reactive Power
+    id: inverter_ac_reactive_power
+    register_type: holding
+    address: 0x0487
+    unit_of_measurement: 'kVar'
+    state_class: 'measurement'
+    icon: 'mdi:math-cos'
+    value_type: S_WORD
+    filters:
+      - multiply: 10
+
+  - platform: modbus_controller
+    modbus_controller_id: ${sofar_modbus_id}
+    name: Sofar AC Freq
+    id: inverter_ac_freq
+    register_type: holding
+    address: 0x0484 ## jest ok.
+    unit_of_measurement: 'Hz'
+    state_class: 'measurement'
+    icon: 'mdi:current-ac'
+    value_type: U_WORD
+    accuracy_decimals: 2
+    filters:
+      - multiply: 0.01
+
+  - platform: modbus_controller
+    modbus_controller_id: ${sofar_modbus_id}
+    name: Sofar L1 Voltage
+    id: inverter_ac_v1
+    register_type: holding
+    address: 0x048D
+    unit_of_measurement: 'V'
+    state_class: 'measurement'
+    device_class: 'voltage'
+    icon: 'mdi:alpha-v-circle'
+    value_type: U_WORD
+    accuracy_decimals: 1
+    filters:
+      - multiply: 0.1
+
+  - platform: modbus_controller
+    modbus_controller_id: ${sofar_modbus_id}
+    name: Sofar L1 Current
+    id: inverter_ac_c1
+    register_type: holding
+    address: 0x048E
+    unit_of_measurement: 'A'
+    state_class: 'measurement'
+    device_class: 'current'
+    icon: 'mdi:alpha-a-circle'
+    value_type: U_WORD
+    accuracy_decimals: 2
+    filters:
+      - multiply: 0.01
+
+  - platform: modbus_controller
+    modbus_controller_id: ${sofar_modbus_id}
+    name: Sofar L2 Voltage
+    id: inverter_ac_v2
+    register_type: holding
+    address: 0x0498
+    unit_of_measurement: 'V'
+    state_class: 'measurement'
+    device_class: 'voltage'
+    icon: 'mdi:alpha-v-circle'
+    value_type: U_WORD
+    accuracy_decimals: 1
+    filters:
+      - multiply: 0.1
+
+  - platform: modbus_controller
+    modbus_controller_id: ${sofar_modbus_id}
+    name: Sofar L2 Current
+    id: inverter_ac_c2
+    register_type: holding
+    address: 0x0499
+    unit_of_measurement: 'A'
+    state_class: 'measurement'
+    device_class: 'current'
+    icon: 'mdi:alpha-a-circle'
+    value_type: U_WORD
+    accuracy_decimals: 2
+    filters:
+      - multiply: 0.01
+
+  - platform: modbus_controller
+    modbus_controller_id: ${sofar_modbus_id}
+    name: Sofar L3 Voltage
+    id: inverter_ac_v3
+    register_type: holding
+    address: 0x04A3
+    unit_of_measurement: 'V'
+    state_class: 'measurement'
+    device_class: 'voltage'
+    icon: 'mdi:alpha-v-circle'
+    value_type: U_WORD
+    accuracy_decimals: 1
+    filters:
+      - multiply: 0.1
+
+  - platform: modbus_controller
+    modbus_controller_id: ${sofar_modbus_id}
+    name: Sofar L3 Current
+    id: inverter_ac_c3
+    register_type: holding
+    address: 0x04A4
+    unit_of_measurement: 'A'
+    state_class: 'measurement'
+    device_class: 'current'
+    icon: 'mdi:alpha-a-circle'
+    value_type: U_WORD
+    accuracy_decimals: 2
+    filters:
+      - multiply: 0.01
+
+  - platform: modbus_controller
+    modbus_controller_id: ${sofar_modbus_id}
+    name: Sofar Energia całkowita Produkcji
+    id: inverter_energy_total
+    register_type: holding
+    ##### address: 0x0015
+    address: 0x0686 # licznik całkowitej energi
+
+    unit_of_measurement: 'kWh'
+    accuracy_decimals: 2
+    device_class: 'energy'
+    state_class: 'total_increasing'
+    icon: 'mdi:solar-power-variant-outline'
+    value_type: U_DWORD
+    filters:
+      # Multiplication factor from W to kW is 0.001
+      - multiply: 0.1
+      #unit_of_measurement: kW
+
+  - platform: modbus_controller
+    modbus_controller_id: ${sofar_modbus_id}
+    name: Sofar Energy produkcja time total
+    id: inverter_energy_generation_time_total
+    register_type: holding
+
+    address: 0x0427
+    # address: 0x0428
+
+    # unit_of_measurement: "h"
+    unit_of_measurement: 'min'
+    icon: 'mdi:timeline-clock'
+    value_type: U_DWORD
+
+  - platform: modbus_controller
+    modbus_controller_id: ${sofar_modbus_id}
+    name: Sofar Energia dzisiaj
+    id: inverter_energy_today
+    register_type: holding
+    address: 0x0685
+    #address: 0x0426
+    unit_of_measurement: 'kWh'
+    state_class: 'measurement'
+    device_class: 'energy'
+    icon: 'mdi:solar-power-variant-outline'
+    value_type: U_WORD
+    accuracy_decimals: 2
+    filters:
+      - multiply: 0.01
+
+  - platform: modbus_controller
+    modbus_controller_id: ${sofar_modbus_id}
+    name: Sofar Energy generation time today
+    id: inverter_energy_generation_time_today
+    register_type: holding
+    address: 0x0426
+    unit_of_measurement: 'min'
+    icon: 'mdi:timeline-clock'
+    value_type: U_WORD
+
+  - platform: modbus_controller
+    modbus_controller_id: ${sofar_modbus_id}
+    name: Sofar Temprature module
+    id: inverter_temp_module
+    register_type: holding
+    # address: 0x001B
+    address: 0x041A
+    unit_of_measurement: '°C'
+    state_class: 'measurement'
+    device_class: 'temperature'
+    icon: 'mdi:temperature-celsius'
+    value_type: U_WORD
+
+  - platform: modbus_controller
+    modbus_controller_id: ${sofar_modbus_id}
+    name: Sofar Temprature inverter
+    id: inverter_temp_inverter
+    register_type: holding
+    #  address: 0x001C
+    address: 0x0418
+    unit_of_measurement: '°C'
+    state_class: 'measurement'
+    device_class: 'temperature'
+    icon: 'mdi:temperature-celsius'
+    value_type: U_WORD
+
+  - platform: modbus_controller
+    modbus_controller_id: ${sofar_modbus_id}
+    name: Sofar Bus voltage
+    id: inverter_bus_voltage
+    register_type: holding
+    address: 0x06CC
+    unit_of_measurement: 'V'
+    state_class: 'measurement'
+    device_class: 'voltage'
+    icon: 'mdi:alpha-v-circle-outline'
+    value_type: U_WORD
+    accuracy_decimals: 1
+    filters:
+      - multiply: 0.1
+
+  - platform: modbus_controller
+    modbus_controller_id: ${sofar_modbus_id}
+    name: Sofar PV- isolation resistance
+    id: inverter_cathode_to_ground_impedance
+    register_type: holding
+    address: 0x042B
+    unit_of_measurement: 'Ohm'
+    state_class: 'measurement'
+    icon: 'mdi:omega'
+    value_type: U_WORD
+
+  - platform: template
+    name: Sofar AC Current (total)
+    lambda: |-
+      return (id(inverter_ac_c1).state + id(inverter_ac_c2).state + id(inverter_ac_c3).state);
+    unit_of_measurement: A
+    accuracy_decimals: 2
+    icon: 'mdi:alpha-a-circle'
+    device_class: 'current'
+    state_class: 'measurement'
+    update_interval: 5s
+
+  - platform: template
+    name: Sofar DC Current (total)
+    lambda: |-
+      return (id(inverter_dc_c1).state + id(inverter_dc_c2).state);
+    unit_of_measurement: A
+    accuracy_decimals: 1
+    state_class: 'measurement'
+    device_class: 'current'
+    icon: 'mdi:alpha-a-circle-outline'
+    update_interval: 5s
+
+  - platform: template
+    name: Sofar DC Power (total)
+    lambda: |-
+      return (id(inverter_dc_power2).state + id(inverter_dc_power1).state);
+    unit_of_measurement: W
+    state_class: 'measurement'
+    device_class: 'power'
+    accuracy_decimals: 0
+    icon: 'mdi:alpha-a-circle-outline'
+    update_interval: 5s
