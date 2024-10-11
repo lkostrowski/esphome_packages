@@ -1,6 +1,6 @@
 defaults:
-  - name: SDM630
-    modbus_device_id: sdm
+  name: SDM630
+  modbus_device_id: sdm
 
 sensor:
   - platform: modbus_controller
