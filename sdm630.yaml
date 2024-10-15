@@ -1,11 +1,11 @@
 defaults:
   name: SDM630
-  modbus_device_id: sdm
+  sdm630_device_id: sdm
 
 sensor:
   - platform: modbus_controller
-    name: ${name} L1 Voltage
-    modbus_controller_id: ${modbus_device_id}
+    name: ${sdm630_name} L1 Voltage
+    modbus_controller_id: ${sdm630_device_id}
     id: sdm_phase1
     address: 0
     register_type: 'read'
@@ -16,8 +16,8 @@ sensor:
     state_class: measurement
 
   - platform: modbus_controller
-    name: ${name} L2 Voltage
-    modbus_controller_id: ${modbus_device_id}
+    name: ${sdm630_name} L2 Voltage
+    modbus_controller_id: ${sdm630_device_id}
     id: sdm_phase2
     address: 2
     register_type: 'read'
@@ -28,8 +28,8 @@ sensor:
     state_class: measurement
 
   - platform: modbus_controller
-    name: ${name} L3 Voltage
-    modbus_controller_id: ${modbus_device_id}
+    name: ${sdm630_name} L3 Voltage
+    modbus_controller_id: ${sdm630_device_id}
     id: sdm_phase3
     address: 4
     register_type: 'read'
@@ -40,8 +40,8 @@ sensor:
     state_class: measurement
 
   - platform: modbus_controller
-    name: ${name} L1 Current
-    modbus_controller_id: ${modbus_device_id}
+    name: ${sdm630_name} L1 Current
+    modbus_controller_id: ${sdm630_device_id}
     id: sdm_current1
     address: 6
     register_type: 'read'
@@ -52,8 +52,8 @@ sensor:
     state_class: measurement
 
   - platform: modbus_controller
-    name: ${name} L2 Current
-    modbus_controller_id: ${modbus_device_id}
+    name: ${sdm630_name} L2 Current
+    modbus_controller_id: ${sdm630_device_id}
     id: sdm_current2
     address: 8
     register_type: 'read'
@@ -64,8 +64,8 @@ sensor:
     state_class: measurement
 
   - platform: modbus_controller
-    name: ${name} L3 Current
-    modbus_controller_id: ${modbus_device_id}
+    name: ${sdm630_name} L3 Current
+    modbus_controller_id: ${sdm630_device_id}
     id: sdm_current3
     address: 10
     register_type: 'read'
@@ -76,8 +76,8 @@ sensor:
     state_class: measurement
 
   - platform: modbus_controller
-    name: ${name} L1 Power
-    modbus_controller_id: ${modbus_device_id}
+    name: ${sdm630_name} L1 Power
+    modbus_controller_id: ${sdm630_device_id}
     id: sdm_power1
     address: 12
     register_type: 'read'
@@ -88,8 +88,8 @@ sensor:
     state_class: measurement
 
   - platform: modbus_controller
-    name: ${name} L2 Power
-    modbus_controller_id: ${modbus_device_id}
+    name: ${sdm630_name} L2 Power
+    modbus_controller_id: ${sdm630_device_id}
     id: sdm_power2
     address: 14
     register_type: 'read'
@@ -100,8 +100,8 @@ sensor:
     state_class: measurement
 
   - platform: modbus_controller
-    name: ${name} L3 Power
-    modbus_controller_id: ${modbus_device_id}
+    name: ${sdm630_name} L3 Power
+    modbus_controller_id: ${sdm630_device_id}
     id: sdm_power3
     address: 16
     register_type: 'read'
@@ -112,8 +112,8 @@ sensor:
     state_class: measurement
 
   - platform: modbus_controller
-    name: ${name} Total Power Watt
-    modbus_controller_id: ${modbus_device_id}
+    name: ${sdm630_name} Total Power Watt
+    modbus_controller_id: ${sdm630_device_id}
     id: sdm_total_w
     address: 52
     register_type: 'read'
@@ -124,8 +124,8 @@ sensor:
     state_class: measurement
 
   - platform: modbus_controller
-    name: ${name} Frequency
-    modbus_controller_id: ${modbus_device_id}
+    name: ${sdm630_name} Frequency
+    modbus_controller_id: ${sdm630_device_id}
     id: sdm_frequency
     address: 70
     register_type: 'read'
@@ -135,8 +135,8 @@ sensor:
     state_class: measurement
 
   - platform: modbus_controller
-    name: ${name} Import Energy Total
-    modbus_controller_id: ${modbus_device_id}
+    name: ${sdm630_name} Import Energy Total
+    modbus_controller_id: ${sdm630_device_id}
     id: sdm_import_total
     address: 72
     register_type: 'read'
@@ -147,8 +147,8 @@ sensor:
     state_class: total_increasing
 
   - platform: modbus_controller
-    name: ${name} Export Energy Total
-    modbus_controller_id: ${modbus_device_id}
+    name: ${sdm630_name} Export Energy Total
+    modbus_controller_id: ${sdm630_device_id}
     id: sdm_export_total
     address: 74
     register_type: 'read'
@@ -159,8 +159,8 @@ sensor:
     state_class: total_increasing
 
   - platform: modbus_controller
-    name: ${name} Total
-    modbus_controller_id: ${modbus_device_id}
+    name: ${sdm630_name} Total
+    modbus_controller_id: ${sdm630_device_id}
     id: sdm_total
     address: 342
     register_type: 'read'
