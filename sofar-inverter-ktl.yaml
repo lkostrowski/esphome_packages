@@ -1,6 +1,6 @@
 #Sofav PV Inverter. Tested on Sofar Solar G series.
 
-defaults:
+substitutions:
   name: Sofar
   modbus_device_id: sofar_modbus
   modbus_device_address: 0x01

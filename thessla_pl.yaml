@@ -1,7 +1,7 @@
 #Thessla Green Airpack 4 integration.
 #PL has Polish names.
 
-defaults:
+substitutions:
   name: Thessla
   modbus_device_id: thessla
   modbus_device_address: 0x01
@@ -153,7 +153,7 @@ binary_sensor:
     name: Rekuperator Silownik bypassu
     register_type: "coil"
     address: 9
-    
+
 switch:
   - platform: modbus_controller
     modbus_controller_id: ${modbus_device_id}
