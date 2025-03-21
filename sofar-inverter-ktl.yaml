@@ -1,8 +1,24 @@
+#Sofav PV Inverter. Tested on Sofar Solar G series.
+
+defaults:
+  name: Sofar
+  modbus_device_id: sofar_modbus
+  modbus_device_address: 0x01
+  modbus_id: boneio_modbus
+  update_interval: 60s
+
+modbus_controller:
+  - id: ${modbus_device_id}
+    address: ${modbus_device_address}
+    modbus_id: ${modbus_id}
+    setup_priority: -10
+    update_interval: ${update_interval}
+
 text_sensor:
   - platform: modbus_controller
-    modbus_controller_id: ${sofar_modbus_id}
-    name: Sofar Status
-    id: inverter_status
+    modbus_controller_id: ${modbus_device_id}
+    name: ${name} Status
+    id: ${modbus_device_id}_inverter_status
     register_type: holding
     icon: 'mdi:information-outline'
     address: 0x0404
@@ -10,20 +26,20 @@ text_sensor:
     lambda: |-
       auto z = "Unknown";
       char d = data[item->offset+1];
-      if (d == 0) z = "Czeka";
-      else if (d == 1) z = "Check";
+      if (d == 0) z = "Stand-by";
+      else if (d == 1) z = "Self-checking";
       else if (d == 2) z = "Working";
       else if (d == 3) z = "Fault";
       else if (d == 4) z = "Permanent";
       else if (d == 5) z = "Fatal error";
-      else if (d == 6) z = "szejść";
-      else if (d == 7) z = "siedem";
+      else if (d == 6) z = "Upgrade";
+      else if (d == 7) z = "Self-charging";
       return {z};
 sensor:
   - platform: modbus_controller
-    modbus_controller_id: ${sofar_modbus_id}
-    name: Sofar DC1 Voltage
-    id: inverter_dc_v1
+    modbus_controller_id: ${modbus_device_id}
+    name: ${name} DC1 Voltage
+    id: ${modbus_device_id}_inverter_dc_v1
     register_type: holding
     address: 0x0584
     unit_of_measurement: 'V'
@@ -36,11 +52,10 @@ sensor:
       - multiply: 0.1
 
   - platform: modbus_controller
-    modbus_controller_id: ${sofar_modbus_id}
-    name: Sofar DC1 Current
-    id: inverter_dc_c1
+    modbus_controller_id: ${modbus_device_id}
+    name: ${name} DC1 Current
+    id: ${modbus_device_id}_inverter_dc_c1
     register_type: holding
-    #  address: 0x0007
     address: 0x0585
     unit_of_measurement: 'A'
     state_class: 'measurement'
@@ -52,9 +67,9 @@ sensor:
       - multiply: 0.01
 
   - platform: modbus_controller
-    modbus_controller_id: ${sofar_modbus_id}
-    name: Sofar DC2 Voltage
-    id: inverter_dc_v2
+    modbus_controller_id: ${modbus_device_id}
+    name: ${name} DC2 Voltage
+    id: ${modbus_device_id}_inverter_dc_v2
     register_type: holding
     address: 0x0587
     unit_of_measurement: 'V'
@@ -67,9 +82,9 @@ sensor:
       - multiply: 0.1
 
   - platform: modbus_controller
-    modbus_controller_id: ${sofar_modbus_id}
-    name: Sofar DC2 Current
-    id: inverter_dc_c2
+    modbus_controller_id: ${modbus_device_id}
+    name: ${name} DC2 Current
+    id: ${modbus_device_id}_inverter_dc_c2
     register_type: holding
     address: 0x0588
     unit_of_measurement: 'A'
@@ -82,9 +97,9 @@ sensor:
       - multiply: 0.01
 
   - platform: modbus_controller
-    modbus_controller_id: ${sofar_modbus_id}
-    name: Sofar DC1 Power
-    id: inverter_dc_power1
+    modbus_controller_id: ${modbus_device_id}
+    name: ${name} DC1 Power
+    id: ${modbus_device_id}_inverter_dc_power1
     register_type: holding
     address: 0x0586
     unit_of_measurement: 'W'
@@ -96,9 +111,9 @@ sensor:
       - multiply: 10
 
   - platform: modbus_controller
-    modbus_controller_id: ${sofar_modbus_id}
-    name: Sofar DC2 Power
-    id: inverter_dc_power2
+    modbus_controller_id: ${modbus_device_id}
+    name: ${name} DC2 Power
+    id: ${modbus_device_id}_inverter_dc_power2
     register_type: holding
     address: 0x0589
     unit_of_measurement: 'W'
@@ -110,9 +125,9 @@ sensor:
       - multiply: 10
 
   - platform: modbus_controller
-    modbus_controller_id: ${sofar_modbus_id}
-    name: Sofar AC Power
-    id: inverter_ac_power
+    modbus_controller_id: ${modbus_device_id}
+    name: ${name} AC Power
+    id: ${modbus_device_id}_inverter_ac_power
     register_type: holding
     address: 0x0485
     unit_of_measurement: 'W'
@@ -124,9 +139,9 @@ sensor:
       - multiply: 10
 
   - platform: modbus_controller
-    modbus_controller_id: ${sofar_modbus_id}
-    name: Sofar AC Reactive Power
-    id: inverter_ac_reactive_power
+    modbus_controller_id: ${modbus_device_id}
+    name: ${name} AC Reactive Power
+    id: ${modbus_device_id}_inverter_ac_reactive_power
     register_type: holding
     address: 0x0487
     unit_of_measurement: 'kVar'
@@ -137,9 +152,9 @@ sensor:
       - multiply: 10
 
   - platform: modbus_controller
-    modbus_controller_id: ${sofar_modbus_id}
-    name: Sofar AC Freq
-    id: inverter_ac_freq
+    modbus_controller_id: ${modbus_device_id}
+    name: ${name} AC Freq
+    id: ${modbus_device_id}_inverter_ac_freq
     register_type: holding
     address: 0x0484 ## jest ok.
     unit_of_measurement: 'Hz'
@@ -151,9 +166,9 @@ sensor:
       - multiply: 0.01
 
   - platform: modbus_controller
-    modbus_controller_id: ${sofar_modbus_id}
-    name: Sofar L1 Voltage
-    id: inverter_ac_v1
+    modbus_controller_id: ${modbus_device_id}
+    name: ${name} L1 Voltage
+    id: ${modbus_device_id}_inverter_ac_v1
     register_type: holding
     address: 0x048D
     unit_of_measurement: 'V'
@@ -166,9 +181,9 @@ sensor:
       - multiply: 0.1
 
   - platform: modbus_controller
-    modbus_controller_id: ${sofar_modbus_id}
-    name: Sofar L1 Current
-    id: inverter_ac_c1
+    modbus_controller_id: ${modbus_device_id}
+    name: ${name} L1 Current
+    id: ${modbus_device_id}_inverter_ac_c1
     register_type: holding
     address: 0x048E
     unit_of_measurement: 'A'
@@ -181,9 +196,9 @@ sensor:
       - multiply: 0.01
 
   - platform: modbus_controller
-    modbus_controller_id: ${sofar_modbus_id}
-    name: Sofar L2 Voltage
-    id: inverter_ac_v2
+    modbus_controller_id: ${modbus_device_id}
+    name: ${name} L2 Voltage
+    id: ${modbus_device_id}_inverter_ac_v2
     register_type: holding
     address: 0x0498
     unit_of_measurement: 'V'
@@ -196,9 +211,9 @@ sensor:
       - multiply: 0.1
 
   - platform: modbus_controller
-    modbus_controller_id: ${sofar_modbus_id}
-    name: Sofar L2 Current
-    id: inverter_ac_c2
+    modbus_controller_id: ${modbus_device_id}
+    name: ${name} L2 Current
+    id: ${modbus_device_id}_inverter_ac_c2
     register_type: holding
     address: 0x0499
     unit_of_measurement: 'A'
@@ -211,9 +226,9 @@ sensor:
       - multiply: 0.01
 
   - platform: modbus_controller
-    modbus_controller_id: ${sofar_modbus_id}
-    name: Sofar L3 Voltage
-    id: inverter_ac_v3
+    modbus_controller_id: ${modbus_device_id}
+    name: ${name} L3 Voltage
+    id: ${modbus_device_id}_inverter_ac_v3
     register_type: holding
     address: 0x04A3
     unit_of_measurement: 'V'
@@ -226,9 +241,9 @@ sensor:
       - multiply: 0.1
 
   - platform: modbus_controller
-    modbus_controller_id: ${sofar_modbus_id}
-    name: Sofar L3 Current
-    id: inverter_ac_c3
+    modbus_controller_id: ${modbus_device_id}
+    name: ${name} L3 Current
+    id: ${modbus_device_id}_inverter_ac_c3
     register_type: holding
     address: 0x04A4
     unit_of_measurement: 'A'
@@ -241,9 +256,9 @@ sensor:
       - multiply: 0.01
 
   - platform: modbus_controller
-    modbus_controller_id: ${sofar_modbus_id}
-    name: Sofar Energia całkowita Produkcji
-    id: inverter_energy_total
+    modbus_controller_id: ${modbus_device_id}
+    name: ${name} Energia całkowita Produkcji
+    id: ${modbus_device_id}_inverter_energy_total
     register_type: holding
     ##### address: 0x0015
     address: 0x0686 # licznik całkowitej energi
@@ -260,9 +275,9 @@ sensor:
       #unit_of_measurement: kW
 
   - platform: modbus_controller
-    modbus_controller_id: ${sofar_modbus_id}
-    name: Sofar Energy produkcja time total
-    id: inverter_energy_generation_time_total
+    modbus_controller_id: ${modbus_device_id}
+    name: ${name} Energy produkcja time total
+    id: ${modbus_device_id}_inverter_energy_generation_time_total
     register_type: holding
 
     address: 0x0427
@@ -274,9 +289,9 @@ sensor:
     value_type: U_DWORD
 
   - platform: modbus_controller
-    modbus_controller_id: ${sofar_modbus_id}
-    name: Sofar Energia dzisiaj
-    id: inverter_energy_today
+    modbus_controller_id: ${modbus_device_id}
+    name: ${name} Energia dzisiaj
+    id: ${modbus_device_id}_inverter_energy_today
     register_type: holding
     address: 0x0685
     #address: 0x0426
@@ -290,9 +305,9 @@ sensor:
       - multiply: 0.01
 
   - platform: modbus_controller
-    modbus_controller_id: ${sofar_modbus_id}
-    name: Sofar Energy generation time today
-    id: inverter_energy_generation_time_today
+    modbus_controller_id: ${modbus_device_id}
+    name: ${name} Energy generation time today
+    id: ${modbus_device_id}_inverter_energy_generation_time_today
     register_type: holding
     address: 0x0426
     unit_of_measurement: 'min'
@@ -300,9 +315,9 @@ sensor:
     value_type: U_WORD
 
   - platform: modbus_controller
-    modbus_controller_id: ${sofar_modbus_id}
-    name: Sofar Temprature module
-    id: inverter_temp_module
+    modbus_controller_id: ${modbus_device_id}
+    name: ${name} Temprature module
+    id: ${modbus_device_id}_inverter_temp_module
     register_type: holding
     # address: 0x001B
     address: 0x041A
@@ -313,9 +328,9 @@ sensor:
     value_type: U_WORD
 
   - platform: modbus_controller
-    modbus_controller_id: ${sofar_modbus_id}
-    name: Sofar Temprature inverter
-    id: inverter_temp_inverter
+    modbus_controller_id: ${modbus_device_id}
+    name: ${name} Temprature inverter
+    id: ${modbus_device_id}_inverter_temp_inverter
     register_type: holding
     #  address: 0x001C
     address: 0x0418
@@ -326,9 +341,9 @@ sensor:
     value_type: U_WORD
 
   - platform: modbus_controller
-    modbus_controller_id: ${sofar_modbus_id}
-    name: Sofar Bus voltage
-    id: inverter_bus_voltage
+    modbus_controller_id: ${modbus_device_id}
+    name: ${name} Bus voltage
+    id: ${modbus_device_id}_inverter_bus_voltage
     register_type: holding
     address: 0x06CC
     unit_of_measurement: 'V'
@@ -341,9 +356,9 @@ sensor:
       - multiply: 0.1
 
   - platform: modbus_controller
-    modbus_controller_id: ${sofar_modbus_id}
-    name: Sofar PV- isolation resistance
-    id: inverter_cathode_to_ground_impedance
+    modbus_controller_id: ${modbus_device_id}
+    name: ${name} PV- isolation resistance
+    id: ${modbus_device_id}_inverter_cathode_to_ground_impedance
     register_type: holding
     address: 0x042B
     unit_of_measurement: 'Ohm'
@@ -352,7 +367,7 @@ sensor:
     value_type: U_WORD
 
   - platform: template
-    name: Sofar AC Current (total)
+    name: ${name} AC Current (total)
     lambda: |-
       return (id(inverter_ac_c1).state + id(inverter_ac_c2).state + id(inverter_ac_c3).state);
     unit_of_measurement: A
@@ -363,7 +378,7 @@ sensor:
     update_interval: 5s
 
   - platform: template
-    name: Sofar DC Current (total)
+    name: ${name} DC Current (total)
     lambda: |-
       return (id(inverter_dc_c1).state + id(inverter_dc_c2).state);
     unit_of_measurement: A
@@ -374,7 +389,7 @@ sensor:
     update_interval: 5s
 
   - platform: template
-    name: Sofar DC Power (total)
+    name: ${name} DC Power (total)
     lambda: |-
       return (id(inverter_dc_power2).state + id(inverter_dc_power1).state);
     unit_of_measurement: W

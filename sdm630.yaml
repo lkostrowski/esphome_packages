@@ -1,3 +1,5 @@
+#SDM 630 Power meter. Tested on Eastron SDM630 v4 available on https://store.boneio.eu/product/sdm630
+
 defaults:
   name: SDM630
   modbus_device_id: sdm

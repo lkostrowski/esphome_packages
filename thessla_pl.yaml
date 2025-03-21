@@ -1,0 +1,216 @@
+#Thessla Green Airpack 4 integration.
+#PL has Polish names.
+
+defaults:
+  name: Thessla
+  modbus_device_id: thessla
+  modbus_device_address: 0x01
+  modbus_id: boneio_modbus
+  update_interval: 60s
+
+modbus_controller:
+  - id: ${modbus_device_id}
+    address: ${modbus_device_address}
+    modbus_id: ${modbus_id}
+    setup_priority: -10
+    update_interval: ${update_interval}
+
+sensor:
+  - platform: modbus_controller
+    name: Rekuperator Temperatura Czerpnia
+    modbus_controller_id: ${modbus_device_id}
+    id: ${modbus_device_id}_czerpnia_temp
+    address: 16
+    register_type: "read"
+    accuracy_decimals: 1
+    value_type: S_WORD
+    unit_of_measurement: °C
+    device_class: temperature
+    state_class: measurement
+    skip_updates: 3
+    filters:
+      - multiply: 0.1
+  - platform: modbus_controller
+    name: Rekuperator Temperatura Nawiew
+    modbus_controller_id: ${modbus_device_id}
+    id: ${modbus_device_id}_nawiew_temp
+    address: 17
+    register_type: "read"
+    accuracy_decimals: 1
+    value_type: S_WORD
+    unit_of_measurement: °C
+    device_class: temperature
+    state_class: measurement
+    skip_updates: 3
+    filters:
+      - multiply: 0.1
+  - platform: modbus_controller
+    name: Rekuperator Temperatura Wywiew
+    modbus_controller_id: ${modbus_device_id}
+    id: ${modbus_device_id}_wywiew_temp
+    address: 18
+    register_type: "read"
+    accuracy_decimals: 1
+    value_type: U_WORD
+    unit_of_measurement: °C
+    device_class: temperature
+    state_class: measurement
+    skip_updates: 3
+    filters:
+      - multiply: 0.1
+  - platform: modbus_controller
+    name: Rekuperator Temperatura FPX
+    modbus_controller_id: ${modbus_device_id}
+    id: ${modbus_device_id}_fpx_temp
+    address: 19
+    register_type: "read"
+    accuracy_decimals: 1
+    value_type: U_WORD
+    unit_of_measurement: °C
+    device_class: temperature
+    state_class: measurement
+    skip_updates: 3
+    filters:
+      - multiply: 0.1
+  - platform: modbus_controller
+    name: Rekuperator Strumień nawiew
+    modbus_controller_id: ${modbus_device_id}
+    id: ${modbus_device_id}_strumien_nawiew
+    address: 256
+    register_type: "holding"
+    accuracy_decimals: 1
+    value_type: U_WORD
+    unit_of_measurement: m3/h
+    skip_updates: 1
+    state_class: measurement
+  - platform: modbus_controller
+    name: Rekuperator Strumień wywiew
+    modbus_controller_id: ${modbus_device_id}
+    id: ${modbus_device_id}_strumien_wywiew
+    address: 257
+    register_type: "holding"
+    accuracy_decimals: 1
+    value_type: U_WORD
+    unit_of_measurement: m3/h
+    skip_updates: 1
+    state_class: measurement
+  - platform: modbus_controller
+    name: "Rekuperator Wymiana Filtrów"
+    modbus_controller_id: ${modbus_device_id}
+    id: ${modbus_device_id}_reku_wymiana_filtrow
+    skip_updates: 6
+    address: 8444
+    value_type: U_WORD
+    register_type: "holding"
+    unit_of_measurement: ''
+  - platform: modbus_controller
+    name: Rekuperator FPX Flaga
+    modbus_controller_id: ${modbus_device_id}
+    id: ${modbus_device_id}_reku_fpx_flaga
+    address: 4192
+    register_type: "holding"
+    accuracy_decimals: 1
+    value_type: U_WORD
+    skip_updates: 3
+  - platform: modbus_controller
+    name: Rekuperator FPX Tryb
+    modbus_controller_id: ${modbus_device_id}
+    id: ${modbus_device_id}_reku_fpx_tryb
+    address: 4198
+    register_type: "holding"
+    accuracy_decimals: 1
+    value_type: U_WORD
+    skip_updates: 3
+  - platform: modbus_controller
+    name: Aktualny status Bypass
+    modbus_controller_id: ${modbus_device_id}
+    id: ${modbus_device_id}_reku_bypass_mode
+    address: 4330
+    register_type: "holding"
+    accuracy_decimals: 1
+    value_type: U_WORD
+    skip_updates: 3
+  - platform: modbus_controller
+    name: Rekuperator Alarm
+    modbus_controller_id: ${modbus_device_id}
+    id: ${modbus_device_id}_reku_alarm
+    address: 8192
+    register_type: "holding"
+    accuracy_decimals: 1
+    value_type: U_WORD
+    skip_updates: 6
+    
+binary_sensor:
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_device_id}
+    id: ${modbus_device_id}_reku_status
+    name: Rekuperator Status pracy
+    register_type: "coil"
+    address: 10
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_device_id}
+    id: ${modbus_device_id}_reku_bypass_silownik
+    name: Rekuperator Silownik bypassu
+    register_type: "coil"
+    address: 9
+    
+switch:
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_device_id}
+    name: "Tryb Zima Lato"
+    register_type: holding
+    address: 4209
+    icon: "mdi:toggle-switch"
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_device_id}
+    name: "Reku Wietrzenie"
+    register_type: holding
+    address: 4223
+    icon: "mdi:toggle-switch"
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_device_id}
+    name: "Reku ON/OFF"
+    register_type: holding
+    address: 4387
+    icon: "mdi:toggle-switch"
+  - platform: modbus_controller
+    name: Rekuperator Bypass
+    modbus_controller_id: ${modbus_device_id}
+    id: ${modbus_device_id}_reku_bypass
+    address: 4320
+    register_type: holding
+    skip_updates: 1
+    # bitmask: 1
+    inverted: yes
+number:
+  - platform: modbus_controller
+    name: Rekuperator Manual Speed
+    modbus_controller_id: ${modbus_device_id}
+    id: ${modbus_device_id}_reku_manual_speed
+    address: 4210
+    unit_of_measurement: '%'
+    value_type: U_WORD
+    skip_updates: 3
+    min_value: 10
+    max_value: 100
+
+select:
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_device_id}
+    name: "Reku Mode"
+    address: 4208
+    icon: "mdi:toggle-switch"
+    optionsmap:
+      "Automatyczny": 0
+      "Manualny": 1
+      "Chwilowy": 2
+  - platform: modbus_controller
+    modbus_controller_id: ${modbus_device_id}
+    name: "Tryb pracy"
+    address: 4224
+    optionsmap:
+      "Wietrzenie": 7
+      "Zwykly": 0
+      "Pusty dom": 11
+      "Otwarte okna": 10
+      "Kominek": 2
