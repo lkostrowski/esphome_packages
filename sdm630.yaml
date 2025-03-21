@@ -1,11 +1,11 @@
 #SDM 630 Power meter. Tested on Eastron SDM630 v4 available on https://store.boneio.eu/product/sdm630
 
 defaults:
-  device_name: SDM630
-  modbus_device_id: sdm
-  modbus_device_address: 0x01
-  modbus_id: boneio_modbus
-  update_interval: 60s
+  device_name: 'SDM630'
+  modbus_device_id: 'sdm'
+  modbus_device_address: '0x01'
+  modbus_id: 'boneio_modbus'
+  update_interval: '60s'
 
 modbus_controller:
   - id: ${modbus_device_id}
