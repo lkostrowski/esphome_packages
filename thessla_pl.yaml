@@ -2,7 +2,7 @@
 #PL has Polish names.
 
 substitutions:
-  name: 'Thessla'
+  device_name: 'Thessla'
   modbus_device_id: 'thessla_modbus'
   modbus_device_address: '0x01'
   modbus_id: 'boneio_modbus'
@@ -17,7 +17,7 @@ modbus_controller:
 
 sensor:
   - platform: modbus_controller
-    name: Rekuperator Temperatura Czerpnia
+    name: ${device_name} Temperatura Czerpnia
     modbus_controller_id: ${modbus_device_id}
     id: ${modbus_device_id}_czerpnia_temp
     address: 16
@@ -31,7 +31,7 @@ sensor:
     filters:
       - multiply: 0.1
   - platform: modbus_controller
-    name: Rekuperator Temperatura Nawiew
+    name: ${device_name} Temperatura Nawiew
     modbus_controller_id: ${modbus_device_id}
     id: ${modbus_device_id}_nawiew_temp
     address: 17
@@ -45,7 +45,7 @@ sensor:
     filters:
       - multiply: 0.1
   - platform: modbus_controller
-    name: Rekuperator Temperatura Wywiew
+    name: ${device_name} Temperatura Wywiew
     modbus_controller_id: ${modbus_device_id}
     id: ${modbus_device_id}_wywiew_temp
     address: 18
@@ -59,7 +59,7 @@ sensor:
     filters:
       - multiply: 0.1
   - platform: modbus_controller
-    name: Rekuperator Temperatura FPX
+    name: ${device_name} Temperatura FPX
     modbus_controller_id: ${modbus_device_id}
     id: ${modbus_device_id}_fpx_temp
     address: 19
@@ -73,7 +73,7 @@ sensor:
     filters:
       - multiply: 0.1
   - platform: modbus_controller
-    name: Rekuperator Strumień nawiew
+    name: ${device_name} Strumień nawiew
     modbus_controller_id: ${modbus_device_id}
     id: ${modbus_device_id}_strumien_nawiew
     address: 256
@@ -84,7 +84,7 @@ sensor:
     skip_updates: 1
     state_class: measurement
   - platform: modbus_controller
-    name: Rekuperator Strumień wywiew
+    name: ${device_name} Strumień wywiew
     modbus_controller_id: ${modbus_device_id}
     id: ${modbus_device_id}_strumien_wywiew
     address: 257
@@ -95,7 +95,7 @@ sensor:
     skip_updates: 1
     state_class: measurement
   - platform: modbus_controller
-    name: "Rekuperator Wymiana Filtrów"
+    name: ${device_name} Wymiana Filtrów
     modbus_controller_id: ${modbus_device_id}
     id: ${modbus_device_id}_reku_wymiana_filtrow
     skip_updates: 6
@@ -104,7 +104,7 @@ sensor:
     register_type: "holding"
     unit_of_measurement: ''
   - platform: modbus_controller
-    name: Rekuperator FPX Flaga
+    name: ${device_name} Rekuperator FPX Flaga
     modbus_controller_id: ${modbus_device_id}
     id: ${modbus_device_id}_reku_fpx_flaga
     address: 4192
@@ -113,7 +113,7 @@ sensor:
     value_type: U_WORD
     skip_updates: 3
   - platform: modbus_controller
-    name: Rekuperator FPX Tryb
+    name: ${device_name} FPX Tryb
     modbus_controller_id: ${modbus_device_id}
     id: ${modbus_device_id}_reku_fpx_tryb
     address: 4198
@@ -122,7 +122,7 @@ sensor:
     value_type: U_WORD
     skip_updates: 3
   - platform: modbus_controller
-    name: Aktualny status Bypass
+    name: ${device_name} Aktualny status Bypass
     modbus_controller_id: ${modbus_device_id}
     id: ${modbus_device_id}_reku_bypass_mode
     address: 4330
@@ -131,7 +131,7 @@ sensor:
     value_type: U_WORD
     skip_updates: 3
   - platform: modbus_controller
-    name: Rekuperator Alarm
+    name: ${device_name} Alarm
     modbus_controller_id: ${modbus_device_id}
     id: ${modbus_device_id}_reku_alarm
     address: 8192
@@ -144,7 +144,7 @@ binary_sensor:
   - platform: modbus_controller
     modbus_controller_id: ${modbus_device_id}
     id: ${modbus_device_id}_reku_status
-    name: Rekuperator Status pracy
+    name: ${device_name} Status pracy
     register_type: "coil"
     address: 10
   - platform: modbus_controller
@@ -157,24 +157,24 @@ binary_sensor:
 switch:
   - platform: modbus_controller
     modbus_controller_id: ${modbus_device_id}
-    name: "Tryb Zima Lato"
+    name: ${device_name} Tryb Zima Lato
     register_type: holding
     address: 4209
     icon: "mdi:toggle-switch"
   - platform: modbus_controller
     modbus_controller_id: ${modbus_device_id}
-    name: "Reku Wietrzenie"
+    name: ${device_name} Wietrzenie
     register_type: holding
     address: 4223
     icon: "mdi:toggle-switch"
   - platform: modbus_controller
     modbus_controller_id: ${modbus_device_id}
-    name: "Reku ON/OFF"
+    name: ${device_name} ON/OFF
     register_type: holding
     address: 4387
     icon: "mdi:toggle-switch"
   - platform: modbus_controller
-    name: Rekuperator Bypass
+    name: ${device_name} Bypass
     modbus_controller_id: ${modbus_device_id}
     id: ${modbus_device_id}_reku_bypass
     address: 4320
@@ -184,7 +184,7 @@ switch:
     inverted: yes
 number:
   - platform: modbus_controller
-    name: Rekuperator Manual Speed
+    name: ${device_name} Manual Speed
     modbus_controller_id: ${modbus_device_id}
     id: ${modbus_device_id}_reku_manual_speed
     address: 4210
@@ -197,7 +197,7 @@ number:
 select:
   - platform: modbus_controller
     modbus_controller_id: ${modbus_device_id}
-    name: "Reku Mode"
+    name: ${device_name} Mode
     address: 4208
     icon: "mdi:toggle-switch"
     optionsmap:
@@ -206,7 +206,7 @@ select:
       "Chwilowy": 2
   - platform: modbus_controller
     modbus_controller_id: ${modbus_device_id}
-    name: "Tryb pracy"
+    name: ${device_name} Tryb pracy
     address: 4224
     optionsmap:
       "Wietrzenie": 7
