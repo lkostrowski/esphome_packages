@@ -1,7 +1,7 @@
-#Sofav PV Inverter. Tested on Sofar Solar G series.
+#Sofar PV Inverter. Tested on Sofar Solar G series.
 
 substitutions:
-  name: 'Sofar'
+  device_name: 'Sofar'
   modbus_device_id: 'sofar_modbus'
   modbus_device_address: '0x01'
   modbus_id: 'boneio_modbus'
@@ -17,7 +17,7 @@ modbus_controller:
 text_sensor:
   - platform: modbus_controller
     modbus_controller_id: ${modbus_device_id}
-    name: ${name} Status
+    name: ${device_name} Status
     id: ${modbus_device_id}_inverter_status
     register_type: holding
     icon: 'mdi:information-outline'
@@ -38,7 +38,7 @@ text_sensor:
 sensor:
   - platform: modbus_controller
     modbus_controller_id: ${modbus_device_id}
-    name: ${name} DC1 Voltage
+    name: ${device_name} DC1 Voltage
     id: ${modbus_device_id}_inverter_dc_v1
     register_type: holding
     address: 0x0584
@@ -53,7 +53,7 @@ sensor:
 
   - platform: modbus_controller
     modbus_controller_id: ${modbus_device_id}
-    name: ${name} DC1 Current
+    name: ${device_name} DC1 Current
     id: ${modbus_device_id}_inverter_dc_c1
     register_type: holding
     address: 0x0585
@@ -68,7 +68,7 @@ sensor:
 
   - platform: modbus_controller
     modbus_controller_id: ${modbus_device_id}
-    name: ${name} DC2 Voltage
+    name: ${device_name} DC2 Voltage
     id: ${modbus_device_id}_inverter_dc_v2
     register_type: holding
     address: 0x0587
@@ -83,7 +83,7 @@ sensor:
 
   - platform: modbus_controller
     modbus_controller_id: ${modbus_device_id}
-    name: ${name} DC2 Current
+    name: ${device_name} DC2 Current
     id: ${modbus_device_id}_inverter_dc_c2
     register_type: holding
     address: 0x0588
@@ -98,7 +98,7 @@ sensor:
 
   - platform: modbus_controller
     modbus_controller_id: ${modbus_device_id}
-    name: ${name} DC1 Power
+    name: ${device_name} DC1 Power
     id: ${modbus_device_id}_inverter_dc_power1
     register_type: holding
     address: 0x0586
@@ -112,7 +112,7 @@ sensor:
 
   - platform: modbus_controller
     modbus_controller_id: ${modbus_device_id}
-    name: ${name} DC2 Power
+    name: ${device_name} DC2 Power
     id: ${modbus_device_id}_inverter_dc_power2
     register_type: holding
     address: 0x0589
@@ -126,7 +126,7 @@ sensor:
 
   - platform: modbus_controller
     modbus_controller_id: ${modbus_device_id}
-    name: ${name} AC Power
+    name: ${device_name} AC Power
     id: ${modbus_device_id}_inverter_ac_power
     register_type: holding
     address: 0x0485
@@ -140,7 +140,7 @@ sensor:
 
   - platform: modbus_controller
     modbus_controller_id: ${modbus_device_id}
-    name: ${name} AC Reactive Power
+    name: ${device_name} AC Reactive Power
     id: ${modbus_device_id}_inverter_ac_reactive_power
     register_type: holding
     address: 0x0487
@@ -153,7 +153,7 @@ sensor:
 
   - platform: modbus_controller
     modbus_controller_id: ${modbus_device_id}
-    name: ${name} AC Freq
+    name: ${device_name} AC Freq
     id: ${modbus_device_id}_inverter_ac_freq
     register_type: holding
     address: 0x0484 ## jest ok.
@@ -167,7 +167,7 @@ sensor:
 
   - platform: modbus_controller
     modbus_controller_id: ${modbus_device_id}
-    name: ${name} L1 Voltage
+    name: ${device_name} L1 Voltage
     id: ${modbus_device_id}_inverter_ac_v1
     register_type: holding
     address: 0x048D
@@ -182,7 +182,7 @@ sensor:
 
   - platform: modbus_controller
     modbus_controller_id: ${modbus_device_id}
-    name: ${name} L1 Current
+    name: ${device_name} L1 Current
     id: ${modbus_device_id}_inverter_ac_c1
     register_type: holding
     address: 0x048E
@@ -197,7 +197,7 @@ sensor:
 
   - platform: modbus_controller
     modbus_controller_id: ${modbus_device_id}
-    name: ${name} L2 Voltage
+    name: ${device_name} L2 Voltage
     id: ${modbus_device_id}_inverter_ac_v2
     register_type: holding
     address: 0x0498
@@ -212,7 +212,7 @@ sensor:
 
   - platform: modbus_controller
     modbus_controller_id: ${modbus_device_id}
-    name: ${name} L2 Current
+    name: ${device_name} L2 Current
     id: ${modbus_device_id}_inverter_ac_c2
     register_type: holding
     address: 0x0499
@@ -227,7 +227,7 @@ sensor:
 
   - platform: modbus_controller
     modbus_controller_id: ${modbus_device_id}
-    name: ${name} L3 Voltage
+    name: ${device_name} L3 Voltage
     id: ${modbus_device_id}_inverter_ac_v3
     register_type: holding
     address: 0x04A3
@@ -242,7 +242,7 @@ sensor:
 
   - platform: modbus_controller
     modbus_controller_id: ${modbus_device_id}
-    name: ${name} L3 Current
+    name: ${device_name} L3 Current
     id: ${modbus_device_id}_inverter_ac_c3
     register_type: holding
     address: 0x04A4
@@ -257,7 +257,7 @@ sensor:
 
   - platform: modbus_controller
     modbus_controller_id: ${modbus_device_id}
-    name: ${name} Energia całkowita Produkcji
+    name: ${device_name} Energia całkowita Produkcji
     id: ${modbus_device_id}_inverter_energy_total
     register_type: holding
     ##### address: 0x0015
@@ -276,7 +276,7 @@ sensor:
 
   - platform: modbus_controller
     modbus_controller_id: ${modbus_device_id}
-    name: ${name} Energy produkcja time total
+    name: ${device_name} Energy produkcja time total
     id: ${modbus_device_id}_inverter_energy_generation_time_total
     register_type: holding
 
@@ -290,7 +290,7 @@ sensor:
 
   - platform: modbus_controller
     modbus_controller_id: ${modbus_device_id}
-    name: ${name} Energia dzisiaj
+    name: ${device_name} Energia dzisiaj
     id: ${modbus_device_id}_inverter_energy_today
     register_type: holding
     address: 0x0685
@@ -306,7 +306,7 @@ sensor:
 
   - platform: modbus_controller
     modbus_controller_id: ${modbus_device_id}
-    name: ${name} Energy generation time today
+    name: ${device_name} Energy generation time today
     id: ${modbus_device_id}_inverter_energy_generation_time_today
     register_type: holding
     address: 0x0426
@@ -316,10 +316,9 @@ sensor:
 
   - platform: modbus_controller
     modbus_controller_id: ${modbus_device_id}
-    name: ${name} Temprature module
+    name: ${device_name} Temprature module
     id: ${modbus_device_id}_inverter_temp_module
     register_type: holding
-    # address: 0x001B
     address: 0x041A
     unit_of_measurement: '°C'
     state_class: 'measurement'
@@ -329,7 +328,7 @@ sensor:
 
   - platform: modbus_controller
     modbus_controller_id: ${modbus_device_id}
-    name: ${name} Temprature inverter
+    name: ${device_name} Temprature inverter
     id: ${modbus_device_id}_inverter_temp_inverter
     register_type: holding
     #  address: 0x001C
@@ -342,7 +341,7 @@ sensor:
 
   - platform: modbus_controller
     modbus_controller_id: ${modbus_device_id}
-    name: ${name} Bus voltage
+    name: ${device_name} Bus voltage
     id: ${modbus_device_id}_inverter_bus_voltage
     register_type: holding
     address: 0x06CC
@@ -357,7 +356,7 @@ sensor:
 
   - platform: modbus_controller
     modbus_controller_id: ${modbus_device_id}
-    name: ${name} PV- isolation resistance
+    name: ${device_name} PV- isolation resistance
     id: ${modbus_device_id}_inverter_cathode_to_ground_impedance
     register_type: holding
     address: 0x042B
@@ -367,7 +366,7 @@ sensor:
     value_type: U_WORD
 
   - platform: template
-    name: ${name} AC Current (total)
+    name: ${device_name} AC Current (total)
     lambda: |-
       return (id(inverter_ac_c1).state + id(inverter_ac_c2).state + id(inverter_ac_c3).state);
     unit_of_measurement: A
@@ -375,10 +374,10 @@ sensor:
     icon: 'mdi:alpha-a-circle'
     device_class: 'current'
     state_class: 'measurement'
-    update_interval: 5s
+    update_interval: 30s
 
   - platform: template
-    name: ${name} DC Current (total)
+    name: ${device_name} DC Current (total)
     lambda: |-
       return (id(inverter_dc_c1).state + id(inverter_dc_c2).state);
     unit_of_measurement: A
@@ -386,10 +385,10 @@ sensor:
     state_class: 'measurement'
     device_class: 'current'
     icon: 'mdi:alpha-a-circle-outline'
-    update_interval: 5s
+    update_interval: 30s
 
   - platform: template
-    name: ${name} DC Power (total)
+    name: ${device_name} DC Power (total)
     lambda: |-
       return (id(inverter_dc_power2).state + id(inverter_dc_power1).state);
     unit_of_measurement: W
@@ -397,4 +396,4 @@ sensor:
     device_class: 'power'
     accuracy_decimals: 0
     icon: 'mdi:alpha-a-circle-outline'
-    update_interval: 5s
+    update_interval: 30s

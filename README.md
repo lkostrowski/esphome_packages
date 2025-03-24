@@ -39,6 +39,7 @@ These packages are compatible with ESPHome version 2025.3 and newer.
 
 - Sofar Inverter KTL
 - SDM630 Energy Meter
+- Thessla Green Airpack 4
 
 ## Contributing
 
